@@ -22,12 +22,12 @@ export function TopBar() {
       <div className="flex items-center gap-2">
         <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="h-8 w-8 md:hidden">
+            <Button variant="outline" size="icon" className="h-8 w-8 shrink-0 border-border/60 bg-background/50 backdrop-blur-md md:hidden">
               <Menu className="h-4 w-4" />
-              <span className="sr-only">Toggle menu</span>
+              <span className="sr-only">Toggle navigation menu</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="left" className="w-72 p-0 bg-background">
+          <SheetContent side="left" className="w-72 p-0 bg-background border-r border-border/60">
             <Sidebar collapsed={false} onToggle={() => setMobileMenuOpen(false)} />
           </SheetContent>
         </Sheet>
@@ -36,7 +36,7 @@ export function TopBar() {
           variant="outline"
           size="sm"
           onClick={() => setSearchOpen(true)}
-          className="h-8 gap-2 rounded-lg text-muted-foreground"
+          className="h-8 gap-2 rounded-lg border-border/60 text-muted-foreground"
         >
           <Search className="h-3.5 w-3.5" />
           <span className="hidden text-xs sm:inline">Search projects, documents, records…</span>

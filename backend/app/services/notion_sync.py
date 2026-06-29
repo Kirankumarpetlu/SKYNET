@@ -6,11 +6,14 @@ from app.core.security import supabase_client
 
 logger = logging.getLogger(__name__)
 
-NOTION_HEADERS = {
-    "Authorization": f"Bearer {settings.NOTION_TOKEN}",
-    "Notion-Version": "2022-06-28",
-    "Content-Type": "application/json"
-}
+def get_notion_headers() -> dict:
+    token = settings.NOTION_TOKEN.strip() if settings.NOTION_TOKEN else ""
+    return {
+        "Authorization": f"Bearer {token}",
+        "Notion-Version": "2022-06-28",
+        "Content-Type": "application/json"
+    }
+
 
 async def get_or_create_notion_database() -> str:
     """
@@ -27,7 +30,7 @@ async def get_or_create_notion_database() -> str:
                 "property": "object"
             }
         }
-        res = await client.post("https://api.notion.com/v1/search", json=search_db_payload, headers=NOTION_HEADERS)
+        res = await client.post("https://api.notion.com/v1/search", json=search_db_payload, headers=get_notion_headers())
         if res.status_code == 200:
             results = res.json().get("results", [])
             if results:
@@ -43,7 +46,7 @@ async def get_or_create_notion_database() -> str:
                 "property": "object"
             }
         }
-        res_page = await client.post("https://api.notion.com/v1/search", json=search_page_payload, headers=NOTION_HEADERS)
+        res_page = await client.post("https://api.notion.com/v1/search", json=search_page_payload, headers=get_notion_headers())
         if res_page.status_code == 200:
             pages = res_page.json().get("results", [])
             if pages:
@@ -97,7 +100,7 @@ async def get_or_create_notion_database() -> str:
                         }
                     }
                 }
-                res_create = await client.post("https://api.notion.com/v1/databases", json=db_payload, headers=NOTION_HEADERS)
+                res_create = await client.post("https://api.notion.com/v1/databases", json=db_payload, headers=get_notion_headers())
                 if res_create.status_code == 200:
                     new_db_id = res_create.json()["id"]
                     logger.info(f"Created new database in Notion: {new_db_id}")
@@ -148,7 +151,7 @@ async def sync_document_to_notion(document_id: str) -> dict:
                     }
                 }
             }
-            res_query = await client.post(f"https://api.notion.com/v1/databases/{database_id}/query", json=query_payload, headers=NOTION_HEADERS)
+            res_query = await client.post(f"https://api.notion.com/v1/databases/{database_id}/query", json=query_payload, headers=get_notion_headers())
             if res_query.status_code == 200:
                 results = res_query.json().get("results", [])
                 if results:
@@ -209,7 +212,7 @@ async def sync_document_to_notion(document_id: str) -> dict:
         if notion_page_id:
             # Update existing page
             url = f"https://api.notion.com/v1/pages/{notion_page_id}"
-            res = await client.patch(url, json={"properties": properties}, headers=NOTION_HEADERS)
+            res = await client.patch(url, json={"properties": properties}, headers=get_notion_headers())
         else:
             # Create new page
             url = "https://api.notion.com/v1/pages"
@@ -219,7 +222,7 @@ async def sync_document_to_notion(document_id: str) -> dict:
                 },
                 "properties": properties
             }
-            res = await client.post(url, json=payload, headers=NOTION_HEADERS)
+            res = await client.post(url, json=payload, headers=get_notion_headers())
             
         if res.status_code in [200, 201]:
             notion_page_id = res.json()["id"]
