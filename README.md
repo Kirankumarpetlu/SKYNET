@@ -2,7 +2,6 @@
 
 SKYNET is an enterprise-grade AI-powered Document Intelligence Platform that automates document ingestion, clause extraction, risk analysis, anomaly detection, cross-document comparison, and CRM synchronization. The platform enables organizations to analyze contracts, invoices, financial statements, NDAs, and other business documents through an intelligent multi-stage processing pipeline.
 
-
 ---
 
 # Live Demo
