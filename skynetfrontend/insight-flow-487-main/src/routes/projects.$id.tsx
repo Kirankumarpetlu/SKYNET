@@ -220,31 +220,37 @@ function ProjectWorkspace() {
 
         {/* Tabs */}
         <Tabs value={tab} onValueChange={setTab} className="flex min-h-0 flex-1 flex-col">
-          <div className="glass-header px-6">
-            <TabsList className="h-10 bg-transparent p-0">
+          <div className="glass-header px-4 sm:px-6">
+            <TabsList className="h-10 bg-transparent p-0 overflow-x-auto justify-start">
               <TabsTrigger
                 value="chat"
-                className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none text-xs sm:text-sm"
               >
                 Chat
               </TabsTrigger>
               <TabsTrigger
                 value="documents"
-                className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none text-xs sm:text-sm"
               >
                 Documents
               </TabsTrigger>
               <TabsTrigger
                 value="clauses"
-                className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none text-xs sm:text-sm"
               >
                 Clauses
               </TabsTrigger>
               <TabsTrigger
                 value="pipeline"
-                className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none text-xs sm:text-sm"
               >
                 Pipeline
+              </TabsTrigger>
+              <TabsTrigger
+                value="insights"
+                className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none text-xs sm:text-sm lg:hidden"
+              >
+                Insights
               </TabsTrigger>
             </TabsList>
           </div>
@@ -315,6 +321,20 @@ function ProjectWorkspace() {
           <TabsContent value="pipeline" className="scrollbar-thin m-0 flex-1 overflow-y-auto">
             <div className="mx-auto max-w-2xl px-6 py-6">
               <ProcessingTimeline current={stage} />
+            </div>
+          </TabsContent>
+
+          <TabsContent value="insights" className="scrollbar-thin m-0 flex-1 overflow-y-auto lg:hidden">
+            <div className="mx-auto max-w-xl py-4">
+              <InsightsPanel
+                projectName={project.name}
+                riskScore={project.riskScore}
+                riskBreakdown={project.riskBreakdown}
+                documents={documents}
+                anomalies={anomalies}
+                activity={project.activity}
+                inline={true}
+              />
             </div>
           </TabsContent>
         </Tabs>

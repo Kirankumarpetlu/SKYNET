@@ -15,6 +15,7 @@ interface Props {
   documents?: any[];
   anomalies?: any[];
   activity?: { message: string; time: string }[];
+  inline?: boolean;
 }
 
 export function InsightsPanel({
@@ -24,6 +25,7 @@ export function InsightsPanel({
   documents = [],
   anomalies = [],
   activity = [],
+  inline = false,
 }: Props) {
   const [open, setOpen] = useState(true);
 
@@ -39,6 +41,21 @@ export function InsightsPanel({
         { label: "Operational", value: riskBreakdown.operational || 0 },
       ]
     : undefined;
+
+  if (inline) {
+    return (
+      <div className="space-y-4 p-4 w-full">
+        <RiskCard score={riskScore} breakdown={formattedBreakdown} />
+        <div className="grid grid-cols-2 gap-3">
+          <Stat label="Documents" value={documentCount} />
+          <Stat label="Processing" value={processingCount} hint="in pipeline" />
+          <Stat label="Critical" value={criticalCount} tone="destructive" />
+          <Stat label="Warnings" value={warningCount} tone="warning" />
+        </div>
+        <AnomalyCard anomalies={anomalies} />
+      </div>
+    );
+  }
 
   return (
     <>

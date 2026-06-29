@@ -31,13 +31,13 @@ function ProjectsPage() {
 
   return (
     <div className="scrollbar-thin h-full overflow-y-auto">
-      <div className="mx-auto max-w-7xl px-6 py-10 lg:px-10">
+      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10 lg:px-10">
         {/* Glassmorphism Hero Header Banner */}
-        <div className="glass-panel relative overflow-hidden rounded-2xl p-8 shadow-md mb-8">
+        <div className="glass-panel relative overflow-hidden rounded-2xl p-5 sm:p-8 shadow-md mb-6 sm:mb-8">
           <div className="relative z-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h1 className="text-3xl font-bold tracking-tight">Projects Workspace</h1>
-              <p className="mt-1.5 text-sm text-muted-foreground max-w-lg">
+              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Projects Workspace</h1>
+              <p className="mt-1.5 text-xs sm:text-sm text-muted-foreground max-w-lg">
                 Group documents into intelligent workspaces and analyze contracts, insights, and anomalies. {!isLoading && `(${projects.length} active projects)`}
               </p>
             </div>
@@ -50,7 +50,7 @@ function ProjectsPage() {
                   <List className="h-4 w-4" />
                 </Button>
               </div>
-              <Button onClick={() => setOpen(true)} className="rounded-lg shadow-md" size="default">
+              <Button onClick={() => setOpen(true)} className="rounded-lg shadow-md flex-1 sm:flex-initial" size="default">
                 <Plus className="mr-1.5 h-4 w-4" />
                 New Project
               </Button>
