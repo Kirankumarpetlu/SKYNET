@@ -1,0 +1,23 @@
+# Environments & Secrets
+.env
+*.env
+.venv/
+venv/
+
+# Dependencies & Build outputs
+node_modules/
+dist/
+.output/
+.tanstack/
+
+# Zip & Archive files
+*.zip
+*.tar.gz
+
+# Logs
+*.log
+
+# System & IDE
+.DS_Store
+Thumbs.db
+.vscode/
