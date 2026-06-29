@@ -13,6 +13,12 @@ SKYNET is an enterprise-grade AI-powered Document Intelligence Platform that aut
 | API Documentation | https://skynet-production-68c2.up.railway.app/docs |
 
 ---
+---
+
+# Demo Video
+https://drive.google.com/file/d/11UXNpSeqXl07US-etNb9JGDUCCAVju2D/view?usp=sharing
+
+---
 
 # Application Preview
 
