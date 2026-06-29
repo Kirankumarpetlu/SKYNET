@@ -1,4 +1,6 @@
-const API_BASE_URL = "http://localhost:8000/api";
+const RAW_BASE_URL = (typeof import.meta !== "undefined" && import.meta.env?.VITE_API_BASE_URL) || "http://localhost:8000";
+export const API_BASE_URL = RAW_BASE_URL.replace(/\/$/, "") + "/api";
+
 
 export async function fetchProjects() {
   const res = await fetch(`${API_BASE_URL}/projects`);
@@ -80,5 +82,9 @@ export async function fetchCRMRecords() {
 }
 
 export function getWebSocketUrl(projectId: string) {
-  return `ws://localhost:8000/api/pipeline/ws/${projectId}`;
+  const rawUrl = (typeof import.meta !== "undefined" && import.meta.env?.VITE_API_BASE_URL) || "http://localhost:8000";
+  const wsProtocol = rawUrl.startsWith("https") ? "wss" : "ws";
+  const host = rawUrl.replace(/^https?:\/\//, "").replace(/\/$/, "");
+  return `${wsProtocol}://${host}/api/pipeline/ws/${projectId}`;
 }
+

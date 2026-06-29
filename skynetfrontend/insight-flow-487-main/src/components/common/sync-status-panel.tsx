@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
+import { API_BASE_URL } from "@/lib/api";
 
 interface SyncStatus {
   notion_configured: boolean;
@@ -35,7 +36,8 @@ export function SyncStatusPanel() {
   const fetchStatus = async () => {
     try {
       setRefreshing(true);
-      const res = await fetch("http://localhost:8000/api/sync-status");
+      const res = await fetch(`${API_BASE_URL}/sync-status`);
+
       if (!res.ok) throw new Error("Failed to fetch sync status");
       const data = await res.json();
       setStatus(data);
